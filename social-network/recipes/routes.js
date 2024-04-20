@@ -30,6 +30,6 @@ export default function RecipeRoutes(app) {
         const { userId } = req.params;
         const recipes = await dao.findRecipeByUser(userId);
         res.json(recipes);
-      };
-      app.get("/api/users/:userId/recipes", findRecipeByUser);
+    };
+    app.get("/api/users/:userId/recipes", findRecipeByUser);
 }

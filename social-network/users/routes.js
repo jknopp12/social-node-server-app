@@ -14,8 +14,8 @@ export default function UserRoutes(app) {
     }
     const findUserById = async (req, res) => {
         const user = await dao.findUserById(req.params.userId);
-        res.json(user);    
-     };
+        res.json(user);
+    };
     const updateUser = async (req, res) => {
         const { userId } = req.params;
         let currentUser;
@@ -29,9 +29,9 @@ export default function UserRoutes(app) {
             res.status(400).json(
                 { message: "Username already taken" });
         } else {
-        const currentUser = await dao.createUser(req.body);
-        req.session["currentUser"] = currentUser;
-        res.json(currentUser);
+            const currentUser = await dao.createUser(req.body);
+            req.session["currentUser"] = currentUser;
+            res.json(currentUser);
         }
     };
     const signin = async (req, res) => {
