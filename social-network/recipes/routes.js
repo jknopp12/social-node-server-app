@@ -10,11 +10,11 @@ export default function RecipeRoutes(app) {
         res.json(recipes);
     }
     app.get("/api/recipes", findAllRecipes);
-    const findRecipeById = async (req, res) => {
-        const recipe = await dao.findRecipeById(req.params.recipeId);
+    const findRecipesById = async (req, res) => {
+        const recipe = await dao.findRecipesById(req.params.recipeId);
         res.json(recipe);
     };
-    app.get("/api/recipes/:recipeId", findRecipeById);
+    app.get("/api/recipes/:recipeId", findRecipesById);
     const updateRecipe = async (req, res) => {
         const { recipeId } = req.params;
         const status = await dao.updateRecipe(recipeId, req.body);

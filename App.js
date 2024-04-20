@@ -4,6 +4,7 @@ import express from 'express';
 import cors from "cors";
 import mongoose from "mongoose";
 import UserRoutes from "./social-network/users/routes.js";
+import RecipeRoutes from "./social-network/recipes/routes.js";
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb+srv://knoppjulia12:supersecretpassword@cluster0.qtoqtqc.mongodb.net/"
 mongoose.connect(CONNECTION_STRING);
 const app = express();
@@ -29,6 +30,5 @@ if (process.env.NODE_ENV !== "development") {
 app.use(session(sessionOptions));
 app.use(express.json());
 UserRoutes(app);
-// CourseRoutes(app);
-// ModuleRoutes(app);
+RecipeRoutes(app);
 app.listen(process.env.PORT || 4000);
