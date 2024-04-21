@@ -56,6 +56,18 @@ export default function UserRoutes(app) {
         }
         res.json(currentUser);
     };
+    const getUserRole = async (req, res, next) => {
+        const userId = req.params.userId;
+        dao.findUserById(userId)
+            .then(user => {
+                if (!user) {
+                    return res.status(404).json({ error: 'User not found' });
+                }
+                res.json({ role: user.role });
+            })
+            .catch(next); 
+    };
+
     app.post("/api/users", createUser);
     app.get("/api/users", findAllUsers);
     app.get("/api/users/:userId", findUserById);
@@ -65,4 +77,5 @@ export default function UserRoutes(app) {
     app.post("/api/users/signin", signin);
     app.post("/api/users/signout", signout);
     app.post("/api/users/profile", profile);
+    app.get("/api/users/:userId/role", getUserRole);
 }
