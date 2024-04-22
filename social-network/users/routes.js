@@ -56,6 +56,23 @@ export default function UserRoutes(app) {
         }
         res.json(currentUser);
     };
+
+    // Example in Node.js using Express
+    app.post('/api/users/profile', (req, res) => {
+        console.log('Received request to /api/users/profile:', req.session); // Log the received session
+
+        // Your session validation logic here
+        if (req.session && req.session.userId) {
+            console.log('Session is valid:', req.session.userId); // Log session validation
+            // Your code to handle the request
+            res.json({ message: 'Profile data' }); // Return the profile data
+        } else {
+            console.log('Session is invalid'); // Log session validation failure
+            res.status(401).json({ message: 'Unauthorized' }); // Return 401 error
+        }
+    });
+
+
     const getUserRole = async (req, res, next) => {
         const userId = req.params.userId;
         dao.findUserById(userId)
@@ -65,7 +82,7 @@ export default function UserRoutes(app) {
                 }
                 res.json({ role: user.role });
             })
-            .catch(next); 
+            .catch(next);
     };
 
     app.post("/api/users", createUser);
@@ -76,6 +93,6 @@ export default function UserRoutes(app) {
     app.post("/api/users/signup", signup);
     app.post("/api/users/signin", signin);
     app.post("/api/users/signout", signout);
-    app.post("/api/users/profile", profile);
+    // app.post("/api/users/profile", profile);
     app.get("/api/users/:userId/role", getUserRole);
 }
